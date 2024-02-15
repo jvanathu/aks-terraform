@@ -19,6 +19,7 @@ module "aks" {
   for_each           = var.aks
   environment        = var.environment
   region_name_mapper = var.region_name_mapper
+  network_out = module.network
   aks = {
     location                = each.key
     node_count = each.value.node_count

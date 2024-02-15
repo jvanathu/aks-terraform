@@ -7,6 +7,21 @@ variable "environment" {
   })
 }
 
+variable "network_out" {
+  type = map(object({
+    subnets = map(object({
+      id   = string
+      name = string
+    }))
+    vnet = object({
+      id       = string
+      location = string
+      name     = string
+    })
+  }))
+  description = "Configuration for each network"
+}
+
 variable "aks" {
   type = object({
     location      = string
@@ -17,9 +32,6 @@ variable "aks" {
 
       })
 }
-# variable "location" {
-
-# }
 
 variable "tags" {
   type = map(string)

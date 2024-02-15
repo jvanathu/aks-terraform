@@ -9,18 +9,18 @@ locals {
   resource_group_name = "rg-${var.environment.name}-aks-${var.region_name_mapper[var.aks.location]}"
   aks_name            = "aks-${var.environment.name}-${var.region_name_mapper[var.aks.location]}"
   system_node_pool_name           = "sysnp"
-  vnet_name           = "vnet-${var.environment.name}-${var.region_name_mapper[var.aks.location]}"
-  vnet_resource_group_name = "rg-${var.environment.name}-network-${var.region_name_mapper[var.aks.location]}"
+  subnet_id     = var.network_out[var.aks.location].subnets.aks.id
+
 }
 
 # ---------------------------------------------------------------
 # Data source to retrieve resource attributes
 # ---------------------------------------------------------------
-data "azurerm_subnet" "aks_subnet" {
-  name                 = "sn-aks"
-  virtual_network_name = local.vnet_name
-  resource_group_name  = local.vnet_resource_group_name
-}
+# data "azurerm_subnet" "aks_subnet" {
+#   name                 = "sn-aks"
+#   virtual_network_name = local.vnet_name
+#   resource_group_name  = local.vnet_resource_group_name
+# }
 # # Datasource to get Latest Azure AKS latest Version
 # data "azurerm_kubernetes_service_versions" "current" {
 #   location = var.location
@@ -47,7 +47,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name            = "default"
     node_count      = var.aks.node_count
     vm_size         = var.aks.vm_size
-    vnet_subnet_id  = data.azurerm_subnet.aks_subnet.id
+    vnet_subnet_id  = local.subnet_id
     // Optionally, add other configurations as needed
   }
 
@@ -62,7 +62,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     # outbound_type     = null // "userDefinedRouting"
   }
 
-  private_cluster_enabled = false
+  private_cluster_enabled = true
  
   identity {
     type = "SystemAssigned"

@@ -7,7 +7,7 @@ test
 **/.logs/*
 provider.tf
 _.tf
-
+tmp
 
 
 # Local .terraform directories

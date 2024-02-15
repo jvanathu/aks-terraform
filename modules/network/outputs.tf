@@ -13,11 +13,11 @@ output "vnet" {
 
 output "subnets" {
   value = {
-    external_appgw = var.network.subnet_address_prefixes.appgw != null ? {
+    appgw = var.network.subnet_address_prefixes.appgw != null ? {
       name = local.appgw_subnet_name
       id   = "${azurerm_virtual_network.vnet.id}/subnets/${local.appgw_subnet_name}"
     } : null
-    external_apim = var.network.subnet_address_prefixes.aks != null ? {
+    aks = var.network.subnet_address_prefixes.aks != null ? {
       name = local.aks_subnet_name
       id   = "${azurerm_virtual_network.vnet.id}/subnets/${local.aks_subnet_name}"
     } : null
