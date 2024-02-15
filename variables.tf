@@ -1,11 +1,11 @@
 variable "environment" {
   type = object({
-    name = string
-    type = string # dev, uat, prod
+    name   = string
+    type   = string # dev, uat, prod
     region = string
   })
   validation {
-    condition     = contains(["non-prod","prod"], var.environment.type)
+    condition     = contains(["non-prod", "prod"], var.environment.type)
     error_message = "Valid values for var: environment.type are (non-prod, prod)."
   }
 }
@@ -39,9 +39,20 @@ variable "network" {
       address_space = string
       subnet_address_prefixes = object({
         appgw = string
-        aks  = string
+        aks   = string
       })
       nat_gateway = bool
+    })
+  )
+}
+
+variable "aks" {
+  type = map(
+    object({
+      node_count = number
+      vm_size    = string
+          node_count_system = number
+    vm_size_system = string
     })
   )
 }

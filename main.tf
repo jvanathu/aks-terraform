@@ -1,8 +1,8 @@
 
 module "network" {
-  source      = "./modules/network"
-  for_each    = var.network
-  environment = var.environment
+  source             = "./modules/network"
+  for_each           = var.network
+  environment        = var.environment
   region_name_mapper = var.region_name_mapper
   network = {
     location                = each.key
@@ -13,3 +13,18 @@ module "network" {
   tags = var.tags
 }
 
+
+module "aks" {
+  source             = "./modules/aks"
+  for_each           = var.aks
+  environment        = var.environment
+  region_name_mapper = var.region_name_mapper
+  aks = {
+    location                = each.key
+    node_count = each.value.node_count
+    vm_size = each.value.vm_size
+        node_count_system = each.value.node_count_system
+    vm_size_system = each.value.vm_size_system
+  }
+  tags = var.tags
+}

@@ -1,5 +1,5 @@
 brew update && brew install azure-cli
-
+alias tf=terraform
 openssl pkcs12 -export -out data/certs/certificate.pfx -inkey data/certs/private-key.pem -in data/certs/full-chain.pem
 
 az login --tenant b5bc7c3d-d7f5-48a4-a38f-7864f685d660
