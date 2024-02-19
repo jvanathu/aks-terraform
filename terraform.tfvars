@@ -2,6 +2,7 @@ environment = {
   name   = "vrtuaksint"
   type   = "non-prod"
   region = "eastus"
+
 }
 
 connect_tenant_id       = ""
@@ -10,23 +11,25 @@ connect_client_id       = ""
 connect_client_secret   = ""
 
 network = {
-  eastus = {
     address_space = "10.106.108.0/22"
     subnet_address_prefixes = {
       aks   = "10.106.108.0/24"
       appgw = "10.106.109.0/25"
     }
     nat_gateway = false
-  }
 }
 
 aks = {
-  eastus = {
-    node_count = 1
-    vm_size    = "Standard_DS2_v2"
-    node_count_system = 1
-    vm_size_system = "Standard_DS2_v2"
-  }
+
+    node_count            = 1
+    min_node_count        = 1
+    max_node_count        = 3
+    vm_size               = "Standard_DS2_v2"
+    node_count_system     = 1
+    min_node_count_system = 1
+    max_node_count_system = 3
+    vm_size_system        = "Standard_DS2_v2"
+  
 }
 
 tags = {

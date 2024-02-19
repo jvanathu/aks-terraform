@@ -34,8 +34,7 @@ variable "connect_subscription_id" {
 }
 
 variable "network" {
-  type = map(
-    object({
+  type = object({
       address_space = string
       subnet_address_prefixes = object({
         appgw = string
@@ -43,19 +42,21 @@ variable "network" {
       })
       nat_gateway = bool
     })
-  )
 }
 
 variable "aks" {
-  type = map(
-    object({
-      node_count = number
-      vm_size    = string
-          node_count_system = number
-    vm_size_system = string
-    })
-  )
+  type = object({
+    node_count              = number
+    vm_size                 = string
+    node_count_system       = number
+    vm_size_system          = string
+    min_node_count          = number
+    max_node_count          = number
+    min_node_count_system   = number
+    max_node_count_system   = number
+  })
 }
+
 
 variable "tags" {
   type = map(string)

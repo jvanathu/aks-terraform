@@ -6,8 +6,8 @@
 # Local variables to hold resource names
 # ---------------------------------------------------------------
 locals {
-  resource_group_name = "rg-${var.environment.name}-network-${var.region_name_mapper[var.network.location]}"
-  vnet_name           = "vnet-${var.environment.name}-${var.region_name_mapper[var.network.location]}"
+  resource_group_name = "rg-${var.environment.name}-network-${var.region_name_mapper[var.environment.region]}"
+  vnet_name           = "vnet-${var.environment.name}-${var.region_name_mapper[var.environment.region]}"
 
   appgw_subnet_name = "sn-appgw"
   aks_subnet_name  = "sn-aks"
@@ -21,7 +21,7 @@ locals {
 # ---------------------------------------------------------------
 resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
-  location = var.network.location
+  location = var.environment.region
   tags     = var.tags
 }
 
@@ -30,7 +30,7 @@ resource "azurerm_resource_group" "rg" {
 # ---------------------------------------------------------------
 resource "azurerm_virtual_network" "vnet" {
   name                = local.vnet_name
-  location            = var.network.location
+  location            = var.environment.region
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = [var.network.address_space]
   //enableVmProtection: false

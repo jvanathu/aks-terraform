@@ -15,7 +15,6 @@ variable "region_name_mapper" {
 variable "network" {
   type = object({
     address_space = string
-    location      = string
     subnet_address_prefixes = object({
       appgw = string
       aks  = string

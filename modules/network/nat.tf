@@ -1,14 +1,14 @@
 locals {
-  nat_public_ip_name = "pip-${var.environment.name}-nat-${var.region_name_mapper[var.network.location]}"
-  nat_gateway_name   = "nat-${var.environment.name}-${var.region_name_mapper[var.network.location]}"
-  route_table_name   = "rt-${var.environment.name}-${var.region_name_mapper[var.network.location]}"
+  nat_public_ip_name = "pip-${var.environment.name}-nat-${var.region_name_mapper[var.environment.region]}"
+  nat_gateway_name   = "nat-${var.environment.name}-${var.region_name_mapper[var.environment.region]}"
+  route_table_name   = "rt-${var.environment.name}-${var.region_name_mapper[var.environment.region]}"
 }
 
 # Create a Public IP for the NAT Gateway
 resource "azurerm_public_ip" "nat_gateway_ip" {
   count               = var.network.nat_gateway ? 1 : 0
   name                = local.nat_public_ip_name
-  location            = var.network.location
+  location            = var.environment.region
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -18,7 +18,7 @@ resource "azurerm_public_ip" "nat_gateway_ip" {
 resource "azurerm_nat_gateway" "nat_gateway" {
   count               = var.network.nat_gateway ? 1 : 0
   name                = local.nat_gateway_name
-  location            = var.network.location
+  location            = var.environment.region
   resource_group_name = azurerm_resource_group.rg.name
   sku_name            = "Standard"
 }

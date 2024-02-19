@@ -12,3 +12,9 @@ terraform init \
   -backend-config="key=tfstate/vrtuaksint/terraform.tfstate"
 
   az storage blob lease break -b terraform.tfstate -c terraform --account-name virtuapimterraform --account-key w0LiwRuClpHKEmt+MmtlgE/nSA/EBB5r3IrLRIxh1rfE3pcL3KoKLMkVY4KedAZUYomwXXyFkNSh+AStxUypdQ==
+
+  az aks command invoke --resource-group rg-vrtuaksint-aks-eus --name aks-vrtuaksint-eus --command "kubectl get pods -n kube-system"
+
+  az aks get-credentials --resource-group rg-vrtuaksint-aks-eus --name aks-vrtuaksint-eus --overwrite-existing
+
+  az aks command invoke --resource-group rg-vrtuaksint-aks-eus --name aks-vrtuaksint-eus --command "kubectl get pods -n kube-system"

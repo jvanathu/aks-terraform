@@ -1,5 +1,7 @@
 
  My code structure is organized as follows: the root directory contains 'main.tf', 'terraform.tfvars', 'provider.tf', and 'variables.tf'. Additionally, I have created module dir, a 'network' module. This is achieved by creating a 'network' folder  then again main.tf,variable.tf,output.tf
+
+
 The structure is detailed below:
 
 
@@ -13,4 +15,5 @@ The structure is detailed below:
 ├── terraform.tfvars          # Terraform variables definition file
 ├── main.tf                   # Main Terraform configuration file
 └── variables.tf              # Variable definitions for the root module
+
 
